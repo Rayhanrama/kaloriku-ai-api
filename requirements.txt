@@ -1,0 +1,4 @@
+Flask
+langchain_community<0.3.0
+replicate
+gunicorn
