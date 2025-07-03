@@ -22,3 +22,6 @@ def saran_ai():
     prompt = zeroshot_prompt_diet(data)
     result = model.invoke(prompt)
     return jsonify({'saran': result})
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=8080)
