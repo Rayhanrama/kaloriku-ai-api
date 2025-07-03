@@ -1,18 +1,19 @@
-# Gunakan image python resmi
+# Gunakan image Python minimal
 FROM python:3.10-slim
 
-# Set direktori kerja
+# Set working directory
 WORKDIR /app
 
-# Salin file dependensi
-COPY requirements.txt .
+# Install dependencies untuk build (git & pip wheel)
+RUN apt-get update && apt-get install -y git && pip install --upgrade pip
 
-# Install dependensi Python
-RUN pip install --upgrade pip && pip install --no-cache-dir -r requirements.txt
+# Install library dari GitHub (manual, bukan via requirements.txt)
+RUN pip install git+https://github.com/ibm-granite-community/utils.git
+RUN pip install langchain_community<0.3.0 replicate Flask==2.2.5
 
-# Salin semua file ke container
+# Salin semua source code
 COPY . .
 
-# Jalankan app Flask di port 8080
+# Jalankan Flask di port Railway (8080)
 EXPOSE 8080
 CMD ["python", "app.py"]
